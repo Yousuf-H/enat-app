@@ -1,20 +1,44 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 
 const NotFound = lazy(() => import("./NotFound"));
 const ForgotPassword = lazy(() => import("./ForgotPassword"));
 
-const FirebaseLogin = lazy(() => import("./login/FirebaseLogin"));
-const FirebaseRegister = lazy(() => import("./register/FirebaseRegister"));
-
-// const JwtLogin = Loadable(lazy(() => import("./login/JwtLogin")));
-// const JwtRegister = Loadable(lazy(() => import("./register/JwtRegister")));
-// const Auth0Login = Loadable(lazy(() => import("./login/Auth0Login")));
+const JwtLogin = lazy(() => import("./login/JwtLogin"));
+const JwtRegister = lazy(() => import("./register/JwtRegister.jsx"));
 
 const sessionRoutes = [
-  { path: "/session/signup", element: <FirebaseRegister /> },
-  { path: "/session/signin", element: <FirebaseLogin /> },
-  { path: "/session/forgot-password", element: <ForgotPassword /> },
-  { path: "*", element: <NotFound /> }
+  {
+    path: "/session/signup",
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <JwtRegister />
+      </Suspense>
+    )
+  },
+  {
+    path: "/session/signin",
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <JwtLogin />
+      </Suspense>
+    )
+  },
+  {
+    path: "/session/forgot-password",
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <ForgotPassword />
+      </Suspense>
+    )
+  },
+  {
+    path: "*",
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <NotFound />
+      </Suspense>
+    )
+  }
 ];
 
 export default sessionRoutes;

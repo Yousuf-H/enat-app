@@ -15,7 +15,7 @@ const SimpleForm = () => {
     email: "",
     mobile: "",
     gender: "",
-    username: "",
+    name: "",
     password: "",
     firstName: "",
     creditCard: "",
@@ -32,7 +32,7 @@ const SimpleForm = () => {
     setState({ ...state, [event.target.name]: event.target.value });
   };
 
-  const { username, firstName, creditCard, mobile, password, confirmPassword, gender, email } =
+  const { name, firstName, creditCard, mobile, password, confirmPassword, gender, email } =
     state;
 
   return (
@@ -44,10 +44,10 @@ const SimpleForm = () => {
               <TextField
                 fullWidth
                 type="text"
-                name="username"
-                value={username}
+                name="name"
+                value={name}
                 onChange={handleChange}
-                label="Username"
+                label="name"
               />
 
               <TextField

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -51,13 +52,6 @@ const StyledRoot = styled("div")(() => ({
   }
 }));
 
-// initial login credentials
-const initialValues = {
-  email: "jason@ui-lib.com",
-  password: "dummyPass",
-  remember: true
-};
-
 // form field validation schema
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -70,14 +64,21 @@ export default function JwtLogin() {
   const theme = useTheme();
   const navigate = useNavigate();
 
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
+
 
   const handleFormSubmit = async (values) => {
     try {
       await login(values.email, values.password);
       navigate("/");
     } catch (e) {
-      console.error(e);
+      console.error("❌ Login error:", e);
     }
   };
 
@@ -95,8 +96,9 @@ export default function JwtLogin() {
             <ContentBox>
               <Formik
                 onSubmit={handleFormSubmit}
-                initialValues={initialValues}
-                validationSchema={validationSchema}>
+                initialValues={{ email: "", password: "" }}
+                validationSchema={validationSchema}
+              >
                 {({
                   values,
                   errors,
@@ -152,7 +154,8 @@ export default function JwtLogin() {
 
                       <NavLink
                         to="/session/forgot-password"
-                        style={{ color: theme.palette.primary.main }}>
+                        style={{ color: theme.palette.primary.main }}
+                      >
                         Forgot password?
                       </NavLink>
                     </FlexBox>
@@ -162,7 +165,8 @@ export default function JwtLogin() {
                       color="primary"
                       loading={isSubmitting}
                       variant="contained"
-                      sx={{ my: 2 }}>
+                      sx={{ my: 2 }}
+                    >
                       Login
                     </LoadingButton>
 
@@ -170,7 +174,8 @@ export default function JwtLogin() {
                       Don't have an account?
                       <NavLink
                         to="/session/signup"
-                        style={{ color: theme.palette.primary.main, marginLeft: 5 }}>
+                        style={{ color: theme.palette.primary.main, marginLeft: 5 }}
+                      >
                         Register
                       </NavLink>
                     </Paragraph>

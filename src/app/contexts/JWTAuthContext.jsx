@@ -4,6 +4,8 @@ import axios from "axios";
 // GLOBAL CUSTOM COMPONENTS
 import Loading from "app/components/MatxLoading";
 
+axios.defaults.baseURL = "http://localhost:3000";
+
 const initialState = {
   user: null,
   isInitialized: false,
@@ -62,15 +64,17 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const login = async (email, password) => {
-    const { data } = await axios.post("/api/auth/login", { email, password });
+    const { data } = await axios.post("/api/v1/auth/login", { email, password });
     const { accessToken, user } = data;
 
     setSession(accessToken);
     dispatch({ type: "LOGIN", payload: { user } });
   };
 
-  const register = async (email, username, password) => {
-    const { data } = await axios.post("/api/auth/register", { email, username, password });
+  const register = async (email, name, password) => {
+    const { data } = await axios.post("/api/v1/auth/register", {
+      user: { email, name, password, password_confirmation: password }
+    });
     const { accessToken, user } = data;
 
     setSession(accessToken);
@@ -89,7 +93,7 @@ export const AuthProvider = ({ children }) => {
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
-          const response = await axios.get("/api/auth/profile");
+          const response = await axios.get("/api/v1/auth/profile");
           const { user } = response.data;
 
           dispatch({

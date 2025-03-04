@@ -142,7 +142,8 @@ const Layout1Topbar = () => {
 
                 <Avatar src={user.avatar} sx={{ cursor: "pointer" }} />
               </UserMenu>
-            }>
+            }
+          >
             <StyledItem>
               <Link to="/">
                 <Home />
@@ -151,15 +152,17 @@ const Layout1Topbar = () => {
             </StyledItem>
 
             <StyledItem>
-              <Link to="/page-layouts/user-profile">
+              <Link to="/user_profile">
                 <Person />
                 <Span sx={{ marginInlineStart: 1 }}>Profile</Span>
               </Link>
             </StyledItem>
 
             <StyledItem>
-              <Settings />
-              <Span sx={{ marginInlineStart: 1 }}>Settings</Span>
+              <Link to="/settings">
+                <Settings />
+                <Span sx={{ marginInlineStart: 1 }}>Settings</Span>
+              </Link>
             </StyledItem>
 
             <StyledItem onClick={logout}>

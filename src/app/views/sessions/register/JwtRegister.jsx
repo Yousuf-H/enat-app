@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -24,6 +25,12 @@ const ContentBox = styled("div")(() => ({
   background: "rgba(0, 0, 0, 0.01)"
 }));
 
+const JustifyBox = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
+});
+
 const JWTRegister = styled(JustifyBox)(() => ({
   background: "#1A2038",
   minHeight: "100vh !important",
@@ -41,7 +48,7 @@ const JWTRegister = styled(JustifyBox)(() => ({
 const initialValues = {
   email: "",
   password: "",
-  username: "",
+  name: "",
   remember: true
 };
 
@@ -55,12 +62,19 @@ const validationSchema = Yup.object().shape({
 
 export default function JwtRegister() {
   const theme = useTheme();
-  const { register } = useAuth();
   const navigate = useNavigate();
+
+  const { register, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleFormSubmit = (values) => {
     try {
-      register(values.email, values.username, values.password);
+      register(values.email, values.name, values.password);
       navigate("/");
     } catch (e) {
       console.log(e);
@@ -86,7 +100,8 @@ export default function JwtRegister() {
               <Formik
                 onSubmit={handleFormSubmit}
                 initialValues={initialValues}
-                validationSchema={validationSchema}>
+                validationSchema={validationSchema}
+              >
                 {({
                   values,
                   errors,
@@ -101,14 +116,14 @@ export default function JwtRegister() {
                       fullWidth
                       size="small"
                       type="text"
-                      name="username"
-                      label="Username"
+                      name="name"
+                      label="name"
                       variant="outlined"
                       onBlur={handleBlur}
-                      value={values.username}
+                      value={values.name}
                       onChange={handleChange}
-                      helperText={touched.username && errors.username}
-                      error={Boolean(errors.username && touched.username)}
+                      helperText={touched.name && errors.name}
+                      error={Boolean(errors.name && touched.name)}
                       sx={{ mb: 3 }}
                     />
 
@@ -160,7 +175,8 @@ export default function JwtRegister() {
                       color="primary"
                       variant="contained"
                       loading={isSubmitting}
-                      sx={{ mb: 2, mt: 3 }}>
+                      sx={{ mb: 2, mt: 3 }}
+                    >
                       Register
                     </LoadingButton>
 
@@ -168,7 +184,8 @@ export default function JwtRegister() {
                       Already have an account?
                       <NavLink
                         to="/session/signin"
-                        style={{ color: theme.palette.primary.main, marginLeft: 5 }}>
+                        style={{ color: theme.palette.primary.main, marginLeft: 5 }}
+                      >
                         Login
                       </NavLink>
                     </Paragraph>

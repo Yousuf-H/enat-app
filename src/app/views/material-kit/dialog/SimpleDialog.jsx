@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+const emails = ['name@gmail.com', 'user02@gmail.com'];
 
 function SimpleDialog(props) {
   const { onClose, selectedValue, ...other } = props;

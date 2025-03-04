@@ -7,15 +7,22 @@ import { authRoles } from "./auth/authRoles";
 import Loadable from "./components/Loadable";
 import MatxLayout from "./components/MatxLayout/MatxLayout";
 import sessionRoutes from "./views/sessions/session-routes";
-import materialRoutes from "app/views/material-kit/MaterialRoutes";
 
-// E-CHART PAGE
-const AppEchart = Loadable(lazy(() => import("app/views/charts/echarts/AppEchart")));
-// DASHBOARD PAGE
+// Dashboard
 const Analytics = Loadable(lazy(() => import("app/views/dashboard/Analytics")));
 
+// Pages
+const Words = Loadable(lazy(() => import("app/views/pages/Words")));
+const Lessons = Loadable(lazy(() => import("app/views/pages/Lessons")));
+const Quizzes = Loadable(lazy(() => import("app/views/pages/Quizzes")));
+const Leaderboard = Loadable(lazy(() => import("app/views/pages/Leaderboard")));
+const Settings = Loadable(lazy(() => import("app/views/pages/Settings")));
+const FAQ = Loadable(lazy(() => import("app/views/pages/FAQ")));
+const ContactSupport = Loadable(lazy(() => import("app/views/pages/ContactSupport")));
+const UserProfile = Loadable(lazy(() => import("app/views/pages/UserProfile")));
+
 const routes = [
-  { path: "/", element: <Navigate to="dashboard/default" /> },
+  { path: "/", element: <Navigate to="dashboard" /> },
   {
     element: (
       <AuthGuard>
@@ -23,11 +30,15 @@ const routes = [
       </AuthGuard>
     ),
     children: [
-      ...materialRoutes,
-      // dashboard route
-      { path: "/dashboard/default", element: <Analytics />, auth: authRoles.admin },
-      // e-chart route
-      { path: "/charts/echarts", element: <AppEchart />, auth: authRoles.editor }
+      { path: "/dashboard", element: <Analytics />, auth: authRoles.admin },
+      { path: "/words", element: <Words /> },
+      { path: "/lessons", element: <Lessons /> },
+      { path: "/quizzes", element: <Quizzes /> },
+      { path: "/leaderboard", element: <Leaderboard /> },
+      { path: "/settings", element: <Settings /> },
+      { path: "/faq", element: <FAQ /> },
+      { path: "/contact-support", element: <ContactSupport /> },
+      { path: "/user_profile", element: <UserProfile /> }
     ]
   },
 

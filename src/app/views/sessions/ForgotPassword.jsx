@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
+
+import useAuth from "app/hooks/useAuth";
 
 // STYLED COMPONENTS
 const StyledRoot = styled("div")(() => ({
@@ -32,7 +34,15 @@ const ContentBox = styled("div")(({ theme }) => ({
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("admin@example.com");
+  const [email, setEmail] = useState("");
+
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleFormSubmit = () => {
     console.log(email);
@@ -67,7 +77,8 @@ export default function ForgotPassword() {
               color="primary"
               variant="outlined"
               onClick={() => navigate(-1)}
-              sx={{ mt: 2 }}>
+              sx={{ mt: 2 }}
+            >
               Go Back
             </Button>
           </form>
