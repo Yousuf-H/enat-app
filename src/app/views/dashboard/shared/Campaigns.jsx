@@ -1,28 +1,28 @@
 import { Small } from "app/components/Typography";
-import { MatxProgressBar, SimpleCard } from "app/components";
+import { EnatProgressBar, SimpleCard } from "app/components";
 
-export default function Campaigns() {
+export default function LessonProgress() {
   return (
     <div>
-      <SimpleCard title="Campaigns">
+      <SimpleCard title="Lesson Progress">
         <Small color="text.secondary">Today</Small>
-        <MatxProgressBar value={75} color="primary" text="Google (102k)" />
-        <MatxProgressBar value={45} color="secondary" text="Twitter (40k)" />
-        <MatxProgressBar value={75} color="primary" text="Tensor (80k)" />
+        <EnatProgressBar value={90} color="primary" text="Vocabulary (90%)" />
+        <EnatProgressBar value={50} color="secondary" text="Grammar (50%)" />
+        <EnatProgressBar value={30} color="primary" text="Pronunciation (30%)" />
 
         <Small color="text.secondary" display="block" pt={4}>
           Yesterday
         </Small>
-        <MatxProgressBar value={75} color="primary" text="Google (102k)" />
-        <MatxProgressBar value={45} color="secondary" text="Twitter (40k)" />
-        <MatxProgressBar value={75} color="primary" text="Tensor (80k)" />
+        <EnatProgressBar value={90} color="primary" text="Vocabulary (90%)" />
+        <EnatProgressBar value={60} color="secondary" text="Grammar (60%)" />
+        <EnatProgressBar value={40} color="primary" text="Pronunciation (40%)" />
 
         <Small color="text.secondary" display="block" pt={4}>
-          Yesterday
+          Last Week
         </Small>
-        <MatxProgressBar value={75} color="primary" text="Google (102k)" />
-        <MatxProgressBar value={45} color="secondary" text="Twitter (40k)" />
-        <MatxProgressBar value={75} color="primary" text="Tensor (80k)" />
+        <EnatProgressBar value={95} color="primary" text="Vocabulary (95%)" />
+        <EnatProgressBar value={70} color="secondary" text="Grammar (70%)" />
+        <EnatProgressBar value={50} color="primary" text="Pronunciation (50%)" />
       </SimpleCard>
     </div>
   );

@@ -1,14 +1,12 @@
 import { useRoutes } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 // ROOT THEME PROVIDER
-import { MatxTheme } from "./components";
+import { EnatTheme } from "./components";
 // ALL CONTEXTS
 import SettingsProvider from "./contexts/SettingsContext";
 import { AuthProvider } from "./contexts/JWTAuthContext";
 // ROUTES
 import routes from "./routes";
-// FAKE SERVER
-import "../__api__";
 
 export default function App() {
   const content = useRoutes(routes);
@@ -16,10 +14,10 @@ export default function App() {
   return (
     <SettingsProvider>
       <AuthProvider>
-        <MatxTheme>
+        <EnatTheme>
           <CssBaseline />
           {content}
-        </MatxTheme>
+        </EnatTheme>
       </AuthProvider>
     </SettingsProvider>
   );

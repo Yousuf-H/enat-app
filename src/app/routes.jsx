@@ -5,7 +5,7 @@ import AuthGuard from "./auth/AuthGuard";
 import { authRoles } from "./auth/authRoles";
 
 import Loadable from "./components/Loadable";
-import MatxLayout from "./components/MatxLayout/MatxLayout";
+import EnatLayout from "./components/EnatLayout/EnatLayout";
 import sessionRoutes from "./views/sessions/session-routes";
 
 // Dashboard
@@ -26,7 +26,7 @@ const routes = [
   {
     element: (
       <AuthGuard>
-        <MatxLayout />
+        <EnatLayout />
       </AuthGuard>
     ),
     children: [

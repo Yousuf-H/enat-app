@@ -78,7 +78,7 @@ export default function JwtLogin() {
       await login(values.email, values.password);
       navigate("/");
     } catch (e) {
-      console.error("❌ Login error:", e);
+      console.error("Login error:", e);
     }
   };
 

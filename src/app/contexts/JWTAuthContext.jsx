@@ -2,7 +2,7 @@ import { createContext, useEffect, useReducer } from "react";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 // GLOBAL CUSTOM COMPONENTS
-import Loading from "app/components/MatxLoading";
+import Loading from "app/components/EnatLoading";
 
 axios.defaults.baseURL = "http://localhost:3000";
 

@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import styled from "@mui/material/styles/styled";
 
 import { Span } from "./Typography";
-import { MatxLogo } from "app/components";
+import { EnatLogo } from "app/components";
 import useSettings from "app/hooks/useSettings";
 
 // STYLED COMPONENTS
@@ -27,7 +27,7 @@ export default function Brand({ children }) {
   return (
     <BrandRoot>
       <Box display="flex" alignItems="center">
-        <MatxLogo />
+        <EnatLogo />
         <StyledSpan mode={mode} className="sidenavHoverShow">
           ENAT
         </StyledSpan>

@@ -4,10 +4,10 @@ import Grid from "@mui/material/Grid2";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
-import Store from "@mui/icons-material/Store";
-import Group from "@mui/icons-material/Group";
-import AttachMoney from "@mui/icons-material/AttachMoney";
-import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import School from "@mui/icons-material/School";
+import Quiz from "@mui/icons-material/Quiz";
+import LocalFireDepartment from "@mui/icons-material/LocalFireDepartment";
+import MenuBook from "@mui/icons-material/MenuBook";
 import ArrowRightAlt from "@mui/icons-material/ArrowRightAlt";
 import { Small } from "app/components/Typography";
 
@@ -40,10 +40,10 @@ const Heading = styled("h6")(({ theme }) => ({
 
 export default function StatCards() {
   const cardList = [
-    { name: "New Leads", amount: 3050, Icon: Group },
-    { name: "This week Sales", amount: "$80,500", Icon: AttachMoney },
-    { name: "Inventory Status", amount: "8.5% Stock Surplus", Icon: Store },
-    { name: "Orders to deliver", amount: "305 Orders", Icon: ShoppingCart }
+    { name: "New Words Learned", amount: "50 Words", Icon: MenuBook },
+    { name: "Quizzes Completed", amount: "12 Quizzes", Icon: Quiz },
+    { name: "Current Streak", amount: "5 Days", Icon: LocalFireDepartment },
+    { name: "Lessons Completed", amount: "8 Lessons", Icon: School }
   ];
 
   return (

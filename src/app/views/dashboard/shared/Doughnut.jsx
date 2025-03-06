@@ -12,13 +12,13 @@ export default function DoughnutChart({ height, color = [] }) {
       icon: "circle",
       textStyle: { color: theme.palette.text.secondary, fontSize: 13, fontFamily: "roboto" }
     },
-    tooltip: { show: false, trigger: "item", formatter: "{a} <br/>{b}: {c} ({d}%)" },
+    tooltip: { show: true, trigger: "item", formatter: "{a} <br/>{b}: {c} ({d}%)" },
     xAxis: [{ axisLine: { show: false }, splitLine: { show: false } }],
     yAxis: [{ axisLine: { show: false }, splitLine: { show: false } }],
 
     series: [
       {
-        name: "Traffic Rate",
+        name: "Learning Progress",
         type: "pie",
         hoverOffset: 5,
         radius: ["45%", "72.55%"],
@@ -40,7 +40,6 @@ export default function DoughnutChart({ height, color = [] }) {
             fontSize: "14",
             padding: 4,
             fontWeight: "normal",
-            // formatter: "{b} \n{c} ({d}%)"
             formatter: "{b} ({d}%)"
           },
           itemStyle: {
@@ -50,9 +49,9 @@ export default function DoughnutChart({ height, color = [] }) {
           }
         },
         data: [
-          { value: 65, name: "Google" },
-          { value: 20, name: "Facebook" },
-          { value: 15, name: "Others" }
+          { value: 60, name: "Words Learned" },
+          { value: 25, name: "Quizzes Completed" },
+          { value: 15, name: "Lessons Finished" }
         ]
       }
     ]

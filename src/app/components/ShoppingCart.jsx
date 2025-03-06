@@ -15,7 +15,7 @@ import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 
 import { H6, Small } from "./Typography";
 import useSettings from "app/hooks/useSettings";
-import { themeShadows } from "./MatxTheme/themeColors";
+import { themeShadows } from "./EnatTheme/themeColors";
 
 import { sideNavWidth, topBarHeight } from "app/utils/constant";
 

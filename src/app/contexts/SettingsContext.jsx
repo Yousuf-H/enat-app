@@ -1,15 +1,15 @@
 import { createContext, useState } from "react";
 import merge from "lodash/merge";
 // CUSTOM COMPONENT
-import { MatxLayoutSettings } from "app/components/MatxLayout/settings";
+import { EnatLayoutSettings } from "app/components/EnatLayout/settings";
 
 export const SettingsContext = createContext({
-  settings: MatxLayoutSettings,
+  settings: EnatLayoutSettings,
   updateSettings: () => {}
 });
 
 export default function SettingsProvider({ settings, children }) {
-  const [currentSettings, setCurrentSettings] = useState(settings || MatxLayoutSettings);
+  const [currentSettings, setCurrentSettings] = useState(settings || EnatLayoutSettings);
 
   const handleUpdateSettings = (update = {}) => {
     const merged = merge({}, currentSettings, update);

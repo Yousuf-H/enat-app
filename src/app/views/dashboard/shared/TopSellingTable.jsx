@@ -1,17 +1,15 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Table from "@mui/material/Table";
-import Select from "@mui/material/Select";
 import Avatar from "@mui/material/Avatar";
 import TableRow from "@mui/material/TableRow";
-import MenuItem from "@mui/material/MenuItem";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import IconButton from "@mui/material/IconButton";
 import { styled, useTheme } from "@mui/material/styles";
-import Edit from "@mui/icons-material/Edit";
 import { Paragraph } from "app/components/Typography";
+import StarIcon from "@mui/icons-material/Star";
 
 // STYLED COMPONENTS
 const CardHeader = styled(Box)(() => ({
@@ -29,137 +27,100 @@ const Title = styled("span")(() => ({
   textTransform: "capitalize"
 }));
 
-const ProductTable = styled(Table)(() => ({
+const LeaderboardTable = styled(Table)(() => ({
   minWidth: 400,
   whiteSpace: "pre",
-  "& small": {
-    width: 50,
-    height: 15,
-    borderRadius: 500,
-    boxShadow: "0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24)"
-  },
   "& td": { borderBottom: "none" },
   "& td:first-of-type": { paddingLeft: "16px !important" }
 }));
 
-const Small = styled("small")(({ bgcolor }) => ({
-  width: 50,
-  height: 15,
-  color: "#fff",
-  padding: "2px 8px",
-  borderRadius: "4px",
-  overflow: "hidden",
-  background: bgcolor,
-  boxShadow: "0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24)"
-}));
-
-export default function TopSellingTable() {
-  const { palette } = useTheme();
-  const bgError = palette.error.main;
-  const bgPrimary = palette.primary.main;
-  const bgSecondary = palette.secondary.main;
+export default function Leaderboard() {
+  const goldColor = "#FFD700";
 
   return (
     <Card elevation={3} sx={{ pt: "20px", mb: 3 }}>
       <CardHeader>
-        <Title>top selling products</Title>
-        <Select size="small" defaultValue="this_month">
-          <MenuItem value="this_month">This Month</MenuItem>
-          <MenuItem value="last_month">Last Month</MenuItem>
-        </Select>
+        <Title>Leaderboard</Title>
       </CardHeader>
 
       <Box overflow="auto">
-        <ProductTable>
+        <LeaderboardTable>
           <TableHead>
             <TableRow>
-              <TableCell colSpan={4} sx={{ px: 3 }}>
-                Name
+              <TableCell colSpan={1} sx={{ px: 3 }}>
+                Rank
               </TableCell>
-
               <TableCell colSpan={2} sx={{ px: 0 }}>
-                Revenue
+                User
               </TableCell>
-
               <TableCell colSpan={2} sx={{ px: 0 }}>
-                Stock Status
+                Words Learned
               </TableCell>
-
-              <TableCell colSpan={1} sx={{ px: 0 }}>
-                Action
+              <TableCell colSpan={2} sx={{ px: 0 }}>
+                Quizzes Completed
               </TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
-            {productList.map((product, index) => (
+            {leaderboardData.map((user, index) => (
               <TableRow key={index} hover>
-                <TableCell colSpan={4} align="left" sx={{ px: 0, textTransform: "capitalize" }}>
-                  <Box display="flex" alignItems="center" gap={4}>
-                    <Avatar src={product.imgUrl} />
-                    <Paragraph>{product.name}</Paragraph>
+                <TableCell colSpan={1} sx={{ px: 0, textAlign: "center" }}>
+                  {index === 0 ? <StarIcon sx={{ color: goldColor }} /> : index + 1}
+                </TableCell>
+
+                <TableCell colSpan={2} sx={{ px: 0, textTransform: "capitalize" }}>
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <Avatar src={user.avatar} />
+                    <Paragraph>{user.name}</Paragraph>
                   </Box>
                 </TableCell>
 
-                <TableCell align="left" colSpan={2} sx={{ px: 0, textTransform: "capitalize" }}>
-                  ${product.price > 999 ? (product.price / 1000).toFixed(1) + "k" : product.price}
+                <TableCell align="left" colSpan={2} sx={{ px: 0 }}>
+                  {user.wordsLearned}
                 </TableCell>
 
                 <TableCell sx={{ px: 0 }} align="left" colSpan={2}>
-                  {product.available ? (
-                    product.available < 20 ? (
-                      <Small bgcolor={bgSecondary}>{product.available} available</Small>
-                    ) : (
-                      <Small bgcolor={bgPrimary}>in stock</Small>
-                    )
-                  ) : (
-                    <Small bgcolor={bgError}>out of stock</Small>
-                  )}
-                </TableCell>
-
-                <TableCell sx={{ px: 0 }} colSpan={1}>
-                  <IconButton>
-                    <Edit color="primary" />
-                  </IconButton>
+                  {user.quizzesCompleted}
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
-        </ProductTable>
+        </LeaderboardTable>
       </Box>
     </Card>
   );
 }
 
-const productList = [
+const leaderboardData = [
   {
-    imgUrl: "/assets/images/products/headphone-2.jpg",
-    name: "earphone",
-    price: 100,
-    available: 15
+    avatar: "/assets/images/users/user-1.jpg",
+    name: "Daniel",
+    wordsLearned: 150,
+    quizzesCompleted: 10
   },
   {
-    imgUrl: "/assets/images/products/headphone-3.jpg",
-    name: "earphone",
-    price: 1500,
-    available: 30
+    avatar: "/assets/images/users/user-2.jpg",
+    name: "Sarah",
+    wordsLearned: 130,
+    quizzesCompleted: 9
   },
   {
-    imgUrl: "/assets/images/products/iphone-2.jpg",
-    name: "iPhone x",
-    price: 1900,
-    available: 35
+    avatar: "/assets/images/users/user-3.jpg",
+    name: "Michael",
+    wordsLearned: 120,
+    quizzesCompleted: 8
   },
   {
-    imgUrl: "/assets/images/products/iphone-1.jpg",
-    name: "iPhone x",
-    price: 100,
-    available: 0
+    avatar: "/assets/images/users/user-4.jpg",
+    name: "Amina",
+    wordsLearned: 100,
+    quizzesCompleted: 7
   },
   {
-    imgUrl: "/assets/images/products/headphone-3.jpg",
-    name: "Head phone",
-    price: 1190,
-    available: 5
+    avatar: "/assets/images/users/user-5.jpg",
+    name: "Lucas",
+    wordsLearned: 90,
+    quizzesCompleted: 6
   }
 ];

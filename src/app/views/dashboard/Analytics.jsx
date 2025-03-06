@@ -49,17 +49,17 @@ export default function Analytics() {
             <TopSellingTable />
             <StatCards2 />
 
-            <H4>Ongoing Projects</H4>
+            <H4>Your Learning Progress</H4>
             <RowCards />
           </Grid>
 
           <Grid size={{ md: 4, xs: 12 }}>
             <Card sx={{ px: 3, py: 2, mb: 3 }}>
-              <Title>Traffic Sources</Title>
+              <Title>Learning Progress</Title>
               <SubTitle>Last 30 days</SubTitle>
 
               <DoughnutChart
-                height="300px"
+                height="400px"
                 color={[palette.primary.dark, palette.primary.main, palette.primary.light]}
               />
             </Card>
