@@ -11,9 +11,6 @@ import Home from "@mui/icons-material/Home";
 import Menu from "@mui/icons-material/Menu";
 import Person from "@mui/icons-material/Person";
 import Settings from "@mui/icons-material/Settings";
-import WebAsset from "@mui/icons-material/WebAsset";
-import MailOutline from "@mui/icons-material/MailOutline";
-import StarOutline from "@mui/icons-material/StarOutline";
 import PowerSettingsNew from "@mui/icons-material/PowerSettingsNew";
 
 import useAuth from "app/hooks/useAuth";
@@ -21,7 +18,6 @@ import useSettings from "app/hooks/useSettings";
 import { NotificationProvider } from "app/contexts/NotificationContext";
 
 import { Span } from "app/components/Typography";
-import ShoppingCart from "app/components/ShoppingCart";
 import { EnatMenu, EnatSearchBox } from "app/components";
 import { NotificationBar } from "app/components/NotificationBar";
 import { themeShadows } from "app/components/EnatTheme/themeColors";
@@ -75,11 +71,6 @@ const StyledItem = styled(MenuItem)(({ theme }) => ({
   "& span": { marginRight: "10px", color: theme.palette.text.primary }
 }));
 
-const IconBox = styled("div")(({ theme }) => ({
-  display: "inherit",
-  [theme.breakpoints.down("md")]: { display: "none !important" }
-}));
-
 const Layout1Topbar = () => {
   const theme = useTheme();
   const { settings, updateSettings } = useSettings();
@@ -108,20 +99,6 @@ const Layout1Topbar = () => {
           <StyledIconButton onClick={handleSidebarToggle}>
             <Menu />
           </StyledIconButton>
-
-          <IconBox>
-            <StyledIconButton>
-              <MailOutline />
-            </StyledIconButton>
-
-            <StyledIconButton>
-              <WebAsset />
-            </StyledIconButton>
-
-            <StyledIconButton>
-              <StarOutline />
-            </StyledIconButton>
-          </IconBox>
         </Box>
 
         <Box display="flex" alignItems="center">
@@ -130,8 +107,6 @@ const Layout1Topbar = () => {
           <NotificationProvider>
             <NotificationBar />
           </NotificationProvider>
-
-          <ShoppingCart />
 
           <EnatMenu
             menuButton={

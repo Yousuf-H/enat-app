@@ -75,14 +75,18 @@ const Heading = styled("span")(({ theme }) => ({
 export default function NotificationBar({ container }) {
   const { settings } = useSettings();
   const [panelOpen, setPanelOpen] = useState(false);
-  const { deleteNotification, clearNotifications, notifications } = useNotification();
+  const { markNotificationAsRead, deleteNotification, clearNotifications, notifications } =
+    useNotification();
 
   const handleDrawerToggle = () => setPanelOpen(!panelOpen);
 
   return (
     <Fragment>
       <IconButton onClick={handleDrawerToggle}>
-        <Badge color="secondary" badgeContent={notifications?.length}>
+        <Badge
+          color="secondary"
+          badgeContent={notifications?.filter((notification) => !notification.read).length || 0}
+        >
           <Notifications sx={{ color: "text.primary" }} />
         </Badge>
       </IconButton>
@@ -95,7 +99,8 @@ export default function NotificationBar({ container }) {
           anchor={"right"}
           open={panelOpen}
           onClose={handleDrawerToggle}
-          ModalProps={{ keepMounted: true }}>
+          ModalProps={{ keepMounted: true }}
+        >
           <Box sx={{ width: sideNavWidth }}>
             <Notification>
               <Notifications color="primary" />
@@ -107,32 +112,33 @@ export default function NotificationBar({ container }) {
                 <DeleteButton
                   size="small"
                   className="deleteButton"
-                  onClick={() => deleteNotification(notification.id)}>
+                  onClick={() => deleteNotification(notification.id)}
+                >
                   <Clear className="icon" />
                 </DeleteButton>
 
                 <Link
-                  to={`/${notification.path}`}
-                  onClick={handleDrawerToggle}
-                  style={{ textDecoration: "none" }}>
+                  to={notification.path ? `/${notification.path}` : "/dashboard"}
+                  onClick={() => {
+                    handleDrawerToggle();
+                    markNotificationAsRead(notification.id);
+                  }}
+                  style={{ textDecoration: "none" }}
+                >
                   <Card sx={{ mx: 2, mb: 3 }} elevation={3}>
                     <CardLeftContent>
                       <Box display="flex">
-                        <Icon className="icon" color={notification.icon.color}>
-                          {notification.icon.name}
-                        </Icon>
-                        <Heading>{notification.heading}</Heading>
+                        <Heading>{notification.title}</Heading>
                       </Box>
 
                       <Small className="messageTime">
-                        {getTimeDifference(new Date(notification.timestamp))}
+                        {getTimeDifference(new Date(notification.created_at))}
                         ago
                       </Small>
                     </CardLeftContent>
 
                     <Box px={2} pt={1} pb={2}>
-                      <Paragraph m={0}>{notification.title}</Paragraph>
-                      <Small color="text.secondary">{notification.subtitle}</Small>
+                      <Paragraph m={0}>{notification.message}</Paragraph>
                     </Box>
                   </Card>
                 </Link>

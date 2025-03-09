@@ -7,6 +7,15 @@ const reducer = (state, action) => {
       return { ...state, notifications: action.payload };
     }
 
+    case "MARK_NOTIFICATIONS_READ": {
+      return {
+        ...state,
+        notifications: state.notifications.map((notification) =>
+          notification.id === action.payload.id ? { ...notification, read: true } : notification
+        )
+      };
+    }
+
     case "DELETE_NOTIFICATION": {
       return { ...state, notifications: action.payload };
     }
@@ -25,6 +34,7 @@ const NotificationContext = createContext({
   deleteNotification: () => {},
   clearNotifications: () => {},
   getNotifications: () => {},
+  markNotificationAsRead: () => {},
   createNotification: () => {}
 });
 
@@ -33,7 +43,7 @@ export const NotificationProvider = ({ children }) => {
 
   const deleteNotification = async (notificationID) => {
     try {
-      const res = await axios.post("/api/notification/delete", { id: notificationID });
+      const res = await axios.delete(`/api/v1/notifications/${notificationID}`);
       dispatch({ type: "DELETE_NOTIFICATION", payload: res.data });
     } catch (e) {
       console.error(e);
@@ -42,8 +52,8 @@ export const NotificationProvider = ({ children }) => {
 
   const clearNotifications = async () => {
     try {
-      const res = await axios.post("/api/notification/delete-all");
-      dispatch({ type: "CLEAR_NOTIFICATIONS", payload: res.data });
+      await axios.delete("/api/v1/notifications/clear_all");
+      dispatch({ type: "CLEAR_NOTIFICATIONS", payload: [] });
     } catch (e) {
       console.error(e);
     }
@@ -51,16 +61,26 @@ export const NotificationProvider = ({ children }) => {
 
   const getNotifications = async () => {
     try {
-      const res = await axios.get("/api/notification");
+      const res = await axios.get("/api/v1/notifications");
       dispatch({ type: "LOAD_NOTIFICATIONS", payload: res.data });
     } catch (e) {
       console.error(e);
     }
   };
 
+  const markNotificationAsRead = async (id) => {
+    try {
+      const res = await axios.patch(`/api/v1/notifications/${id}/mark_as_read`);
+      getNotifications();
+      dispatch({ type: "MARK_NOTIFICATIONS_READ", payload: res.data });
+    } catch (error) {
+      console.error("Error marking notification as read:", error);
+    }
+  };
+
   const createNotification = async (notification) => {
     try {
-      const res = await axios.post("/api/notification/add", { notification });
+      const res = await axios.post("/api/v1/notifications", { notification });
       dispatch({ type: "CREATE_NOTIFICATION", payload: res.data });
     } catch (e) {
       console.error(e);
@@ -77,9 +97,11 @@ export const NotificationProvider = ({ children }) => {
         getNotifications,
         deleteNotification,
         clearNotifications,
+        markNotificationAsRead,
         createNotification,
         notifications: state.notifications
-      }}>
+      }}
+    >
       {children}
     </NotificationContext.Provider>
   );
